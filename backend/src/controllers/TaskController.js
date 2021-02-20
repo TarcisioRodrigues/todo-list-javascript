@@ -26,7 +26,7 @@ export async function destroy(){
   return response.status(204).send('Apagado')
 }
 //Metodo Atualizar
-export async function destroy(){
+export async function update(){
   const{id,tasks}=await task.update(request.body);
 return res.json({
   id,
