@@ -25,3 +25,11 @@ export async function destroy(){
   await db('tasks').where({id}).del();
   return response.status(204).send('Apagado')
 }
+//Metodo Atualizar
+export async function destroy(){
+  const{id,tasks}=await task.update(request.body);
+return res.json({
+  id,
+  tasks
+})
+}
