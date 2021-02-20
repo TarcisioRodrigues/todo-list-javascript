@@ -1,35 +1,39 @@
 //Importações
 
+import { request } from 'express';
 import db from '../database/connection';
 
-//Metodos
-export async function index(){
-  const taskes= await db('tasks').select('*');
-  return response.json(taskes);
+module.exports={
+   async  index(request,response){
+    const taskes= await db('task').select('*');
+    return response.json(taskes);
+  },
+  
+  async  create(request,response){
+  const{tasks}=request.body
+  const insertTask=await db('task').insert({
+    tasks
+  });
+  //Ordem decresente
+  const taskse= await db('task').select('*').first().orderBy('id','desc');
+  return response.json(taskse);
+  
+  },
+  
+  async  destroy(request,response){
+    const {id}=request.params
+  
+    await db('task').where({id}).del();
+    return response.status(204).send('Apagado')
+  },
+  //Metodo Atualizar
+   async  update(request,response){
+    const{tasks}=request.body
+     const{id}=request.params
+     await db('task').update({tasks})
+     .where({id})
+     return response.send();
+  }
 }
 
-export async function create(){
-const{plan}=request.body;
-const insertTask=await db('tasks').insert({
-  plan
-});
-//Ordem decresente
-const tasks= await db('tasks').select('*').first().orderBy('id','desc');
-return response.json(tasks);
 
-}
-
-export async function destroy(){
-  const {id}=request.params
-
-  await db('tasks').where({id}).del();
-  return response.status(204).send('Apagado')
-}
-//Metodo Atualizar
-export async function update(){
-  const{id,tasks}=await task.update(request.body);
-return res.json({
-  id,
-  tasks
-})
-}

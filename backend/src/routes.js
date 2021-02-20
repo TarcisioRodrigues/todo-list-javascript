@@ -1,12 +1,12 @@
 import {Router} from 'express';
 
-import TaskController from './controllers/TaskController';
+import * as TaskController from './controllers/TaskController';
 
 
 const routes=Router();
-routes.post('/task/create',TaskController.create);
+routes.post('/task',TaskController.create);
 routes.get('/tasklist',TaskController.index);
 routes.delete('/task/:id',TaskController.destroy);
-
+routes.put('/task/:id',TaskController.update);
 
 export default routes;
