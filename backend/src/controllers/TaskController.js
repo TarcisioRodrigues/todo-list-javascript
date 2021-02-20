@@ -1,20 +1,20 @@
 //Importações
-import {Request, Response} from 'express';
+
 import db from '../database/connection';
 
 //Metodos
 export async function index(){
-  const tasks= await db('task').select('*');
-  return response.json(tasks);
+  const taskes= await db('tasks').select('*');
+  return response.json(taskes);
 }
 
 export async function create(){
 const{plan}=request.body;
-const insertTask=await db('task').insert({
+const insertTask=await db('tasks').insert({
   plan
 });
 //Ordem decresente
-const tasks= await db('task').select('*').first().orderBy('id','desc');
+const tasks= await db('tasks').select('*').first().orderBy('id','desc');
 return response.json(tasks);
 
 }
@@ -22,6 +22,6 @@ return response.json(tasks);
 export async function destroy(){
   const {id}=request.params
 
-  await db('task').where({id}).del();
+  await db('tasks').where({id}).del();
   return response.status(204).send('Apagado')
 }
