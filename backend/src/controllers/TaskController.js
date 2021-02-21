@@ -7,6 +7,7 @@ module.exports={
    async  index(request,response){
     const taskes= await db('task').select('*');
     return response.json(taskes);
+    
   }, 
  
   
