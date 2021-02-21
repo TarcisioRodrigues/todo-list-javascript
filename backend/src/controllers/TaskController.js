@@ -1,23 +1,32 @@
 //Importações
 
 import { request } from 'express';
-import db from '../database/connection';
+import db, { select } from '../database/connection';
 
 module.exports={
    async  index(request,response){
     const taskes= await db('task').select('*');
     return response.json(taskes);
-  },
+  }, 
+ 
   
   async  create(request,response){
   const{tasks}=request.body
-  const insertTask=await db('task').insert({
+  const insertTask=await  db('task').insert({
     tasks
   });
+
+
   //Ordem decresente
   const taskse= await db('task').select('*').first().orderBy('id','desc');
   return response.json(taskse);
   
+  },
+  //Metodo para pesquisar
+  async search(request,response){
+  const {id}=request.params
+  const plan= await db('task').select('*').where({id});
+  return response.json(plan);
   },
   
   async  destroy(request,response){
