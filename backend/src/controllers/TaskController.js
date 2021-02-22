@@ -45,12 +45,19 @@ module.exports={
     return response.status(204).send('Apagado')
   },
   //Metodo Atualizar
-   async  update(request,response){
+   async  checked(request,response){
     const{checked}=request.body
      const{id}=request.params
      await db('task').update({checked})
      .where({id})
-     return response.send();
+     return response.send("Checked");
+  },
+  async  update(request,response){
+    const{tasks}=request.body
+     const{id}=request.params
+     await db('task').update({tasks})
+     .where({id})
+     return response.send("Atualizado");
   }
 }
 
