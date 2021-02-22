@@ -38,9 +38,9 @@ module.exports={
   },
   //Metodo Atualizar
    async  update(request,response){
-    const{tasks}=request.body
+    const{checked}=request.body
      const{id}=request.params
-     await db('task').update({tasks})
+     await db('task').update({checked})
      .where({id})
      return response.send();
   }
