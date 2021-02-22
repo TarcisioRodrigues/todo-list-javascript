@@ -26,8 +26,16 @@ module.exports={
   //Metodo para pesquisar
   async search(request,response){
   const {id}=request.params
-  const plan= await db('task').select('*').where({id});
-  return response.json(plan);
+  //Verificando id
+  if(!id){
+    return response.status(400).json({message:'id não encontrado'})
+  }
+  const task= await db('task').select('*').where({id});
+  //Verificando a task
+  if(!task &&task.length<0){
+    return response.status(400).json({message:'task não encontrada'})
+  }
+  return response.json(task);
   },
   
   async  destroy(request,response){
