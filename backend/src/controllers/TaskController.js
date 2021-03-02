@@ -9,15 +9,11 @@ module.exports={
     return response.json(taskes);
     
   }, 
- 
-  
   async  create(request,response){
   const{tasks}=request.body
   const insertTask=await  db('task').insert({
     tasks
   });
-
-
   //Ordem decresente
   const taskse= await db('task').select('*').first().orderBy('id','desc');
   return response.json(taskse);
